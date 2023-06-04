@@ -1,6 +1,7 @@
 import express from 'express';
 import userRoutes from '../routes/usuario';
 import torneoRoutes from '../routes/torneo';
+import equipoRoutes from '../routes/equipo';
 import cors from 'cors';
 import { json } from 'sequelize';
 import db from '../db/connections';
@@ -11,7 +12,8 @@ class Server {
     private port: string;
     private apiPaths = {
      usuarios: '/api/usuarios',
-     torneos: '/api/torneos'
+     torneos: '/api/torneos',
+     equipos: '/api/equipos'
     }
 
     constructor() {
@@ -46,8 +48,9 @@ class Server {
 
 
     routes(){
-        this.app.use(this.apiPaths.usuarios, userRoutes)
-        this.app.use(this.apiPaths.torneos, torneoRoutes)
+        this.app.use(this.apiPaths.usuarios, userRoutes);
+        this.app.use(this.apiPaths.torneos, torneoRoutes);
+        this.app.use(this.apiPaths.equipos, equipoRoutes);
     }
 
     listen(){

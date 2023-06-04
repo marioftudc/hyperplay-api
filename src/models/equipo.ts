@@ -1,10 +1,12 @@
 import { DataTypes } from 'sequelize';
 import db from '../db/connections';
 
-const equipo = db.define('equipo', {
+const Equipo = db.define('equipo', {
 
     id_equipo: {
-        type:DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     },
     code: {
         type: DataTypes.INTEGER
@@ -19,4 +21,4 @@ const equipo = db.define('equipo', {
 })
 
 
-export default equipo;
+export default Equipo;
