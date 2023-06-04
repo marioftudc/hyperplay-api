@@ -7,7 +7,9 @@ const sequelize_1 = require("sequelize");
 const connections_1 = __importDefault(require("../db/connections"));
 const Usuario = connections_1.default.define('Usuario', {
     id_usuario: {
-        type: sequelize_1.DataTypes.STRING
+        type: sequelize_1.DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     },
     nit: {
         type: sequelize_1.DataTypes.STRING

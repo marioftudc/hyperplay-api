@@ -5,9 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const connections_1 = __importDefault(require("../db/connections"));
-const torneo = connections_1.default.define('torneo', {
+const Torneo = connections_1.default.define('torneo', {
     id_torneo: {
-        type: sequelize_1.DataTypes.INTEGER
+        type: sequelize_1.DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     },
     code: {
         type: sequelize_1.DataTypes.INTEGER
@@ -43,5 +45,5 @@ const torneo = connections_1.default.define('torneo', {
         type: sequelize_1.DataTypes.INTEGER
     }
 });
-exports.default = torneo;
+exports.default = Torneo;
 //# sourceMappingURL=torneo.js.map
