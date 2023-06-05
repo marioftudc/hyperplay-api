@@ -1,10 +1,12 @@
 import { DataTypes } from 'sequelize';
 import db from '../db/connections';
 
-const inscripcion = db.define('inscripcion', {
+const Inscripciones = db.define('inscripciones', {
 
     id_inscripcion: {
-        type:DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     },
     fee: {
         type: DataTypes.DOUBLE
@@ -17,7 +19,13 @@ const inscripcion = db.define('inscripcion', {
     },
     status: {
         type: DataTypes.INTEGER
+    },
+    updatedAt: {
+        type: DataTypes.DATE
+    },
+    createdAt: {
+        type: DataTypes.DATE
     }
 })
 
-export default inscripcion;
+export default Inscripciones;

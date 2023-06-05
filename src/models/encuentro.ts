@@ -19,6 +19,12 @@ const Encuentro = db.define('encuentro', {
     },
     code_player: {
         type: DataTypes.INTEGER
+    },
+    updatedAt: {
+        type: DataTypes.DATE
+    },
+    createdAt: {
+        type: DataTypes.DATE
     }
 })
 

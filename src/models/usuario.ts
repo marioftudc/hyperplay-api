@@ -42,6 +42,12 @@ const Usuario = db.define('Usuario', {
     },
     code: {
         type: DataTypes.STRING
+    },
+    updatedAt: {
+        type: DataTypes.DATE
+    },
+    createdAt: {
+        type: DataTypes.DATE
     }
 })
 

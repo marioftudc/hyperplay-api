@@ -46,6 +46,12 @@ const Usuario = connections_1.default.define('Usuario', {
     },
     code: {
         type: sequelize_1.DataTypes.STRING
+    },
+    updatedAt: {
+        type: sequelize_1.DataTypes.DATE
+    },
+    createdAt: {
+        type: sequelize_1.DataTypes.DATE
     }
 });
 exports.default = Usuario;

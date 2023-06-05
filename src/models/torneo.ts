@@ -39,6 +39,12 @@ const Torneo = db.define('torneo', {
     },
     matches: {
         type: DataTypes.INTEGER
+    },
+    updatedAt: {
+        type: DataTypes.DATE
+    },
+    createdAt: {
+        type: DataTypes.DATE
     }
     
 })

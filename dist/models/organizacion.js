@@ -17,6 +17,12 @@ const organizacion = connections_1.default.define('organizacion', {
     },
     personal: {
         type: sequelize_1.DataTypes.INTEGER
+    },
+    updatedAt: {
+        type: sequelize_1.DataTypes.DATE
+    },
+    createdAt: {
+        type: sequelize_1.DataTypes.DATE
     }
 });
 exports.default = organizacion;

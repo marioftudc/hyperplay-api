@@ -5,9 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const connections_1 = __importDefault(require("../db/connections"));
-const inscripcion = connections_1.default.define('inscripcion', {
+const Inscripciones = connections_1.default.define('inscripciones', {
     id_inscripcion: {
-        type: sequelize_1.DataTypes.INTEGER
+        type: sequelize_1.DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     },
     fee: {
         type: sequelize_1.DataTypes.DOUBLE
@@ -20,7 +22,13 @@ const inscripcion = connections_1.default.define('inscripcion', {
     },
     status: {
         type: sequelize_1.DataTypes.INTEGER
+    },
+    updatedAt: {
+        type: sequelize_1.DataTypes.DATE
+    },
+    createdAt: {
+        type: sequelize_1.DataTypes.DATE
     }
 });
-exports.default = inscripcion;
+exports.default = Inscripciones;
 //# sourceMappingURL=inscripcion.js.map

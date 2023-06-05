@@ -19,6 +19,12 @@ const Equipo = connections_1.default.define('equipo', {
     },
     id_director: {
         type: sequelize_1.DataTypes.STRING
+    },
+    updatedAt: {
+        type: sequelize_1.DataTypes.DATE
+    },
+    createdAt: {
+        type: sequelize_1.DataTypes.DATE
     }
 });
 exports.default = Equipo;

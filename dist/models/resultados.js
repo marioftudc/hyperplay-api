@@ -59,6 +59,12 @@ const resultados = connections_1.default.define('resultados', {
     },
     assist: {
         type: sequelize_1.DataTypes.INTEGER
+    },
+    updatedAt: {
+        type: sequelize_1.DataTypes.DATE
+    },
+    createdAt: {
+        type: sequelize_1.DataTypes.DATE
     }
 });
 exports.default = resultados;

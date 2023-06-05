@@ -22,6 +22,12 @@ const Encuentro = connections_1.default.define('encuentro', {
     },
     code_player: {
         type: sequelize_1.DataTypes.INTEGER
+    },
+    updatedAt: {
+        type: sequelize_1.DataTypes.DATE
+    },
+    createdAt: {
+        type: sequelize_1.DataTypes.DATE
     }
 });
 exports.default = Encuentro;

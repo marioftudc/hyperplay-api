@@ -43,6 +43,12 @@ const Torneo = connections_1.default.define('torneo', {
     },
     matches: {
         type: sequelize_1.DataTypes.INTEGER
+    },
+    updatedAt: {
+        type: sequelize_1.DataTypes.DATE
+    },
+    createdAt: {
+        type: sequelize_1.DataTypes.DATE
     }
 });
 exports.default = Torneo;

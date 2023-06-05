@@ -56,6 +56,12 @@ const resultados = db.define('resultados', {
     },
     assist: {
         type: DataTypes.INTEGER
+    },
+    updatedAt: {
+        type: DataTypes.DATE
+    },
+    createdAt: {
+        type: DataTypes.DATE
     }
 })
 

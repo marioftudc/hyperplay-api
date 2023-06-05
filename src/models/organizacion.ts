@@ -14,6 +14,12 @@ const organizacion = db.define('organizacion', {
     },
     personal: {
         type: DataTypes.INTEGER
+    },
+    updatedAt: {
+        type: DataTypes.DATE
+    },
+    createdAt: {
+        type: DataTypes.DATE
     }
     
 })

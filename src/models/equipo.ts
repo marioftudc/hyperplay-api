@@ -16,6 +16,12 @@ const Equipo = db.define('equipo', {
     },
     id_director: {
         type: DataTypes.STRING
+    },
+    updatedAt: {
+        type: DataTypes.DATE
+    },
+    createdAt: {
+        type: DataTypes.DATE
     }
     
 })
