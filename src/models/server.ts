@@ -6,8 +6,8 @@ import authRoutes from '../routes/auth';
 import encuentrosRoutes from '../routes/encuentro';
 import inscripcionRoutes from '../routes/inscripcion';
 import organizacionRoutes from '../routes/organizacion';
+import resultadosRoutes from '../routes/resultados';
 import cors from 'cors';
-import { json } from 'sequelize';
 import db from '../db/connections';
 
 class Server {
@@ -22,6 +22,7 @@ class Server {
      encuentros: '/api/encuentros',
      inscripcion: '/api/inscripcion',
      organizacion: '/api/organizacion',
+     resultados: '/api/resultados',
     }
 
     constructor() {
@@ -63,6 +64,7 @@ class Server {
         this.app.use(this.apiPaths.encuentros, encuentrosRoutes);
         this.app.use(this.apiPaths.inscripcion, inscripcionRoutes);
         this.app.use(this.apiPaths.organizacion, organizacionRoutes);
+        this.app.use(this.apiPaths.resultados, resultadosRoutes);
     }
 
     listen(){
