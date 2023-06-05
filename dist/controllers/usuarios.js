@@ -43,7 +43,7 @@ exports.getUsuario = getUsuario;
 const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.header("Access-Control-Allow-Origin", "*");
     try {
-        const { nit, name, lastname, telephone, city, birthdate, email, password, role, code } = req.body;
+        const { nit, nickname, name, lastname, telephone, country, city, birthdate, email, password, role } = req.body;
         const existEmail = yield usuario_1.default.findOne({ where: { email: email } });
         if (existEmail) {
             return res.status(400).json({
@@ -51,11 +51,23 @@ const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 msg: "El email ingresado ya se encuentra registrado"
             });
         }
+        let hoy = new Date();
+        let fecha = hoy.getDate() + "-" + (hoy.getMonth() + 1) + "-" + hoy.getFullYear();
+        let hora = hoy.getHours() + ":" + hoy.getMinutes() + ":" + hoy.getSeconds();
+        let fechaYHora = fecha + " " + hora;
+        let code = "";
+        const time = new Date();
+        code =
+            "" +
+                (Math.floor(Math.random() * (9999 - 1000)) + 1000) +
+                Math.floor(time.getTime() / 1000);
         const usuario = usuario_1.default.build({
             nit,
+            nickname,
             name,
             lastname,
             telephone,
+            country,
             city,
             birthdate,
             email,

@@ -32,7 +32,7 @@ export const postUsuario = async (req: Request, res: Response) => {
     res.header("Access-Control-Allow-Origin", "*");
     try {
         const {
-            nit, name, lastname, telephone, city, birthdate, email, password, role, code
+            nit, nickname, name, lastname, telephone, country, city, birthdate, email, password, role
         } = req.body;
 
         const existEmail = await Usuario.findOne({ where: { email: email } });
@@ -43,11 +43,26 @@ export const postUsuario = async (req: Request, res: Response) => {
             })
         }
 
+        let hoy = new Date();
+        let fecha =
+            hoy.getDate() + "-" + (hoy.getMonth() + 1) + "-" + hoy.getFullYear();
+        let hora = hoy.getHours() + ":" + hoy.getMinutes() + ":" + hoy.getSeconds();
+        let fechaYHora = fecha + " " + hora;
+
+        let code = "";
+        const time = new Date();
+        code =
+            "" +
+            (Math.floor(Math.random() * (9999 - 1000)) + 1000) +
+            Math.floor(time.getTime() / 1000);
+
         const usuario = Usuario.build({
             nit,
+            nickname,
             name,
             lastname,
             telephone,
+            country,
             city,
             birthdate,
             email,
