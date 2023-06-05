@@ -117,7 +117,7 @@ export const deleteEncuentro = async (req: Request, res: Response) => {
 
         res.json({
             msg: "Los datos del encuentro han sido eliminados",
-            encuentro
+            code_match
         })
     } catch (error) {
         console.log(error)
