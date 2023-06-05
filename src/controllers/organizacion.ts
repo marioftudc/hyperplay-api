@@ -6,7 +6,7 @@ export const getOrganizaciones = async (req: Request, res: Response) => {
 
     const organizacion = await Organizaciones.findAll();
     if (organizacion.length === 0) {
-        return res.status(404).json({ msg: "Aun no hay participantes inscritos" })
+        return res.status(404).json({ msg: "Aun no hay Organizaciones creadas" })
     }
     res.json({
         status: 200,
@@ -14,120 +14,109 @@ export const getOrganizaciones = async (req: Request, res: Response) => {
     })
 }
 
-// export const getInscripcion = async (req: Request, res: Response) => {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     const { code_torneo } = req.params;
-//     const inscripcion = await Inscripciones.findOne({ where: { code_torneo: code_torneo } });
+export const getOrganizacion = async (req: Request, res: Response) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    const { id_organizacion } = req.params;
+    const organizacion = await Organizaciones.findOne({ where: { id_organizacion: id_organizacion } });
 
-//     if (inscripcion) {
-//         res.json({
-//             status: 200,
-//             inscripcion
-//         });
-//     } else {
-//         res.status(404).json({
-//             status: 404,
-//             msg: `No existe ninguna inscripcion con el codigo ${code_torneo}`
-//         })
-//     }
-// }
+    if (organizacion) {
+        res.json({
+            status: 200,
+            organizacion
+        });
+    } else {
+        res.status(404).json({
+            status: 404,
+            msg: `No existe ninguna organizacion con el codigo ${id_organizacion}`
+        })
+    }
+}
 
-// export const postInscripcion = async (req: Request, res: Response) => {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     try {
-//         const {
-//             fee,
-//             code_torneo,
-//             code_participant,
-//             status
-//         } = req.body;
+export const postOrganizacion = async (req: Request, res: Response) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    try {
+        const {
+            name,
+            type,
+            status
+        } = req.body;
 
-//         const torneo: any = await Torneo.findOne({ where: { code: code_torneo } });
-//         if (torneo) {
-//             return res.status(400).json({
-//                 status: 400,
-//                 msg: `El Torneo con el codigo ${code_torneo}`
-//             })
-//         }
+        const organizacionE: any = await Organizaciones.findOne({ where: { name: name } });
+        if (organizacionE) {
+            return res.status(400).json({
+                status: 400,
+                msg: `La organizacion con el nombre ${name} ya existe`
+            })
+        }
+        const organizacion: any = Organizaciones.build({
+            name,
+            type,
+            status
+        });
+        await organizacion.save();
+        res.json({
+            msg: "La organizacion ha sido creada con exito",
+            body: organizacion
+        });
 
-//         const equipo: any = await Equipo.findOne({ where: { code: code_participant } });
-//         const player: any = await Usuario.findOne({ where: { code: code_participant } });
-//         if (equipo || player) {
-//             return res.status(400).json({
-//                 status: 400,
-//                 msg: `El Equipo o jugaodor con el codigo ${code_participant}`
-//             })
-//         }
-//         const inscripcion: any = Inscripciones.build({
-//             fee,
-//             code_torneo,
-//             code_participant,
-//             status
-//         });
-//         await inscripcion.save();
-//         res.json({
-//             msg: "El encuentro ha sido creado con exito",
-//             body: inscripcion
-//         });
+    } catch (error) {
+        console.log(error)
+    }
+}
 
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
+export const putOrganizacion = async (req: Request, res: Response) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    try {
+        const { id_organizacion } = req.params;
+        const { body } = req;
 
-// export const putInscripcion = async (req: Request, res: Response) => {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     try {
-//         const { id_inscripcion } = req.params;
-//         const { body } = req;
+        const organizacion = await Organizaciones.findOne({ where: { id_organizacion: id_organizacion } });
+        if (!organizacion) {
+            return res.status(404).json({
+                status: 404,
+                msg: `No existe la organizacion con el codigo ${id_organizacion}`
+            })
+        }
 
-//         const inscripcion = await Inscripciones.findOne({ where: { id_inscripcion: id_inscripcion } });
-//         if (!inscripcion) {
-//             return res.status(404).json({
-//                 status: 404,
-//                 msg: `No existe el encuentro con el codigo ${id_inscripcion}`
-//             })
-//         }
+        await Organizaciones.update(body, { where: { id_organizacion: id_organizacion } });
 
-//         await Inscripciones.update(body, { where: { id_inscripcion: id_inscripcion } });
-
-//         await inscripcion.save();
+        await organizacion.save();
 
 
-//         res.json({
-//             msg: "Los datos del encuentro han sido actualizados",
-//             body
-//         })
-//     } catch (error) {
-//         res.json({
-//             status: 400,
-//             msg: "Hubo un error al actualizar los datos"
-//         })
-//     }
-// }
+        res.json({
+            msg: "Los datos del encuentro han sido actualizados",
+            body
+        })
+    } catch (error) {
+        res.json({
+            status: 400,
+            msg: "Hubo un error al actualizar los datos"
+        })
+    }
+}
 
-// export const deleteInscripcion = async (req: Request, res: Response) => {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     try {
-//         const { id_inscripcion } = req.params;
-//         const inscripcion = await Inscripciones.findOne({ where: { id_inscripcion: id_inscripcion } });
-//         if (!inscripcion) {
-//             return res.status(404).json({
-//                 status: 404,
-//                 msg: `No existe el usuario con el codigo ${id_inscripcion}`
-//             })
-//         }
+export const deleteOrganizacion = async (req: Request, res: Response) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    try {
+        const { id_organizacion } = req.params;
+        const organizacion = await Organizaciones.findOne({ where: { id_organizacion: id_organizacion } });
+        if (!organizacion) {
+            return res.status(404).json({
+                status: 404,
+                msg: `No existe el usuario con el codigo ${id_organizacion}`
+            })
+        }
 
-//         await Inscripciones.destroy({ where: { id_inscripcion: id_inscripcion } });
+        await Organizaciones.destroy({ where: { id_organizacion: id_organizacion } });
 
-//         await inscripcion.save();
+        await organizacion.save();
 
 
-//         res.json({
-//             msg: "Los datos del encuentro han sido eliminados",
-//             inscripcion
-//         })
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
+        res.json({
+            msg: "Los datos del encuentro han sido eliminados",
+            organizacion
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}

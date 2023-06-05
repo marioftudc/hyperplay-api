@@ -1,19 +1,18 @@
 import { DataTypes } from 'sequelize';
 import db from '../db/connections';
 
-const Organizacion = db.define('organizacion', {
+const Organizacion = db.define('organizaciones', {
 
     id_organizacion: {
-        type:DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     },
     name: {
         type: DataTypes.STRING
     },
     type: {
         type: DataTypes.STRING
-    },
-    personal: {
-        type: DataTypes.INTEGER
     },
     updatedAt: {
         type: DataTypes.DATE
