@@ -128,7 +128,7 @@ export const deleteInscripcion = async (req: Request, res: Response) => {
 
         res.json({
             msg: "Los datos del encuentro han sido eliminados",
-            inscripcion
+            id_inscripcion
         })
     } catch (error) {
         console.log(error)
