@@ -16,6 +16,7 @@ const express_1 = __importDefault(require("express"));
 const usuario_1 = __importDefault(require("../routes/usuario"));
 const torneo_1 = __importDefault(require("../routes/torneo"));
 const equipo_1 = __importDefault(require("../routes/equipo"));
+const auth_1 = __importDefault(require("../routes/auth"));
 const cors_1 = __importDefault(require("cors"));
 const connections_1 = __importDefault(require("../db/connections"));
 class Server {
@@ -23,7 +24,8 @@ class Server {
         this.apiPaths = {
             usuarios: '/api/usuarios',
             torneos: '/api/torneos',
-            equipos: '/api/equipos'
+            equipos: '/api/equipos',
+            auth: '/api/auth',
         };
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || '8000';
@@ -52,6 +54,7 @@ class Server {
         this.app.use(express_1.default.static('public'));
     }
     routes() {
+        this.app.use(this.apiPaths.auth, auth_1.default);
         this.app.use(this.apiPaths.usuarios, usuario_1.default);
         this.app.use(this.apiPaths.torneos, torneo_1.default);
         this.app.use(this.apiPaths.equipos, equipo_1.default);
