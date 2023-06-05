@@ -16,20 +16,20 @@ exports.deleteMiembro = exports.postMiembro = exports.getMiembro = exports.getMi
 const miembro_1 = __importDefault(require("../models/miembro"));
 const getMiembros = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.header("Access-Control-Allow-Origin", "*");
-    const equipo = yield miembro_1.default.findAll();
-    if (equipo.length === 0) {
-        return res.status(404).json({ msg: "Aun no hay equipos creados" });
+    const miembros = yield miembro_1.default.findAll();
+    if (miembros.length === 0) {
+        return res.status(404).json({ msg: "Aun no hay miembros creados" });
     }
     res.json({
         status: 200,
-        equipo
+        miembros
     });
 });
 exports.getMiembros = getMiembros;
 const getMiembro = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.header("Access-Control-Allow-Origin", "*");
-    const { equipo } = req.params;
-    const miembro = yield miembro_1.default.findOne({ where: { id_equipo: equipo } });
+    const { id_equipo } = req.params;
+    const miembro = yield miembro_1.default.findOne({ where: { id_equipo: id_equipo } });
     if (miembro) {
         res.json({
             status: 200,
@@ -39,7 +39,7 @@ const getMiembro = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     else {
         res.status(404).json({
             status: 404,
-            msg: `No existe ningún usuario en el equipo ${equipo}`
+            msg: `No existe ningún usuario en el equipo ${id_equipo}`
         });
     }
 });
@@ -73,19 +73,22 @@ exports.postMiembro = postMiembro;
 const deleteMiembro = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.header("Access-Control-Allow-Origin", "*");
     try {
-        const { equipo, id } = req.params;
-        const miembro = yield miembro_1.default.findOne({ where: { id_equipo: equipo, id_usuario: id } });
+        const { id_equipo, id_usuario } = req.params;
+        const miembro = yield miembro_1.default.findOne({ where: { id_equipo: id_equipo, id_usuario: id_usuario } });
         if (!miembro) {
             return res.status(404).json({
                 status: 404,
-                msg: `No existe el usuario con el codigo ${id}`
+                msg: `No existe el miembro con el id de usuario: ${id_usuario} y el id de equipo: ${id_equipo}`
             });
         }
-        yield miembro_1.default.destroy({ where: { id_equipo: equipo, id_usuario: id } });
+        yield miembro_1.default.destroy({ where: { id_equipo: id_equipo, id_usuario: id_usuario } });
         yield miembro.save();
         res.json({
-            msg: "Los datos del Usuario han sido eliminados",
-            id
+            msg: "Los datos del miembro han sido eliminados",
+            data: {
+                id_equipo,
+                id_usuario
+            }
         });
     }
     catch (error) {

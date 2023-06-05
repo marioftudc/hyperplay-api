@@ -39,7 +39,9 @@ export const postOrganizacion = async (req: Request, res: Response) => {
             id_usuario,
             name,
             type,
-            status
+            email,
+            tel,
+            redes
         } = req.body;
 
         const organizacionE: any = await Organizaciones.findOne({ where: { name: name } });
@@ -53,7 +55,9 @@ export const postOrganizacion = async (req: Request, res: Response) => {
             id_usuario,
             name,
             type,
-            status
+            email,
+            tel,
+            redes
         });
         await organizacion.save();
         res.json({
