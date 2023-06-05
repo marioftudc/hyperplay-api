@@ -1,15 +1,19 @@
 import { DataTypes } from 'sequelize';
 import db from '../db/connections';
 
-const resultados = db.define('resultados', {
-
+const Resultados = db.define('resultados', {
     id_resultado: {
-        type:DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     },
     id_encuentro: {
         type: DataTypes.INTEGER
     },
     namegame: {
+        type: DataTypes.STRING
+    },
+    codematch: {
         type: DataTypes.STRING
     },
     teams: {
@@ -24,38 +28,8 @@ const resultados = db.define('resultados', {
     gameduration: {
         type: DataTypes.STRING
     },
-    gamemode: {
-        type: DataTypes.INTEGER
-    },
-    scoresteam: {
-        type: DataTypes.INTEGER
-    },
-    scoresplayer: {
-        type: DataTypes.INTEGER
-    },
-    resultmatchteam: {
-        type: DataTypes.INTEGER
-    },
-    resultmatchplayer: {
-        type: DataTypes.INTEGER
-    },
-    map: {
+    stats: {
         type: DataTypes.STRING
-    },
-    score: {
-        type: DataTypes.STRING
-    },
-    winner: {
-        type: DataTypes.STRING
-    },
-    defeat: {
-        type: DataTypes.STRING
-    },
-    kills: {
-        type: DataTypes.INTEGER
-    },
-    assist: {
-        type: DataTypes.INTEGER
     },
     updatedAt: {
         type: DataTypes.DATE
@@ -66,4 +40,4 @@ const resultados = db.define('resultados', {
 })
 
 
-export default resultados;
+export default Resultados;

@@ -113,7 +113,7 @@ const deleteOrganizacion = (req, res) => __awaiter(void 0, void 0, void 0, funct
         yield organizacion.save();
         res.json({
             msg: "Los datos del encuentro han sido eliminados",
-            organizacion
+            id_organizacion
         });
     }
     catch (error) {

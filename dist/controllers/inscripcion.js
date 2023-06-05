@@ -125,7 +125,7 @@ const deleteInscripcion = (req, res) => __awaiter(void 0, void 0, void 0, functi
         yield inscripcion.save();
         res.json({
             msg: "Los datos del encuentro han sido eliminados",
-            inscripcion
+            id_inscripcion
         });
     }
     catch (error) {

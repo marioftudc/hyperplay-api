@@ -114,7 +114,7 @@ const deleteEncuentro = (req, res) => __awaiter(void 0, void 0, void 0, function
         yield encuentro.save();
         res.json({
             msg: "Los datos del encuentro han sido eliminados",
-            encuentro
+            code_match
         });
     }
     catch (error) {
