@@ -6,7 +6,7 @@ export const getMiembros = async (req: Request, res: Response) => {
 
     const miembros = await Miembro.findAll();
     if (miembros.length === 0) {
-        return res.status(404).json({ msg: "Aun no hay equipos creados" })
+        return res.status(404).json({ msg: "Aun no hay miembros creados" })
     }
     res.json({
         status: 200,
@@ -16,8 +16,8 @@ export const getMiembros = async (req: Request, res: Response) => {
 
 export const getMiembro = async (req: Request, res: Response) => {
     res.header("Access-Control-Allow-Origin", "*");
-    const { equipo } = req.params;
-    const miembro = await Miembro.findOne({ where: { id_equipo: equipo } });
+    const { id_equipo } = req.params;
+    const miembro = await Miembro.findOne({ where: { id_equipo: id_equipo } });
 
     if (miembro) {
         res.json({
@@ -27,7 +27,7 @@ export const getMiembro = async (req: Request, res: Response) => {
     } else {
         res.status(404).json({
             status: 404,
-            msg: `No existe ningún usuario en el equipo ${equipo}`
+            msg: `No existe ningún usuario en el equipo ${id_equipo}`
         })
     }
 }
@@ -67,23 +67,26 @@ export const postMiembro = async (req: Request, res: Response) => {
 export const deleteMiembro = async (req: Request, res: Response) => {
     res.header("Access-Control-Allow-Origin", "*");
     try {
-        const { equipo, id } = req.params;
-        const miembro = await Miembro.findOne({ where: { id_equipo: equipo, id_usuario: id } });
+        const { id_equipo, id_usuario } = req.params;
+        const miembro = await Miembro.findOne({ where: { id_equipo: id_equipo, id_usuario: id_usuario } });
         if (!miembro) {
             return res.status(404).json({
                 status: 404,
-                msg: `No existe el usuario con el codigo ${id}`
+                msg: `No existe el miembro con el id de usuario: ${id_usuario} y el id de equipo: ${id_equipo}`
             })
         }
 
-        await Miembro.destroy({ where: { id_equipo: equipo, id_usuario: id } });
+        await Miembro.destroy({ where: { id_equipo: id_equipo, id_usuario: id_usuario } });
 
         await miembro.save();
 
 
         res.json({
-            msg: "Los datos del Usuario han sido eliminados",
-            id
+            msg: "Los datos del miembro han sido eliminados",
+            data: {
+                id_equipo,
+                id_usuario
+            }
         })
     } catch (error) {
         console.log(error)

@@ -5,9 +5,9 @@ const router = Router ();
 
 
 router.get('/',          getMiembros);
-router.get('/:equipo',          getMiembro);
+router.get('/:id_equipo',          getMiembro);
 router.post('/',          postMiembro);
-router.delete('/:equipo/:id',          deleteMiembro);
+router.delete('/:id_equipo/:id_usuario',          deleteMiembro);
 
 
 export default router;
