@@ -10,5 +10,4 @@ router.post('/',          postResultado);
 router.put('/:id_resultado',          putResultado);
 router.delete('/:id_resultado',          deleteResultado);
 
-
 export default router;
