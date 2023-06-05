@@ -4,13 +4,13 @@ import Miembro from "../models/miembro";
 export const getMiembros = async (req: Request, res: Response) => {
     res.header("Access-Control-Allow-Origin", "*");
 
-    const equipo = await Miembro.findAll();
-    if (equipo.length === 0) {
+    const miembros = await Miembro.findAll();
+    if (miembros.length === 0) {
         return res.status(404).json({ msg: "Aun no hay equipos creados" })
     }
     res.json({
         status: 200,
-        equipo
+        miembros
     })
 }
 
