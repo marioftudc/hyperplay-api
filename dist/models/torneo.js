@@ -11,6 +11,12 @@ const Torneo = connections_1.default.define('torneo', {
         primaryKey: true,
         autoIncrement: true
     },
+    id_organizacion: {
+        type: sequelize_1.DataTypes.INTEGER
+    },
+    id_usuario: {
+        type: sequelize_1.DataTypes.INTEGER
+    },
     code: {
         type: sequelize_1.DataTypes.INTEGER
     },

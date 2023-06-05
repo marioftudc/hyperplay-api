@@ -47,7 +47,7 @@ exports.getOrganizacion = getOrganizacion;
 const postOrganizacion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.header("Access-Control-Allow-Origin", "*");
     try {
-        const { name, type, status } = req.body;
+        const { id_usuario, name, type, status } = req.body;
         const organizacionE = yield organizacion_1.default.findOne({ where: { name: name } });
         if (organizacionE) {
             return res.status(400).json({
@@ -56,6 +56,7 @@ const postOrganizacion = (req, res) => __awaiter(void 0, void 0, void 0, functio
             });
         }
         const organizacion = organizacion_1.default.build({
+            id_usuario,
             name,
             type,
             status

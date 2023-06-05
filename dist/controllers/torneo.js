@@ -47,7 +47,7 @@ exports.getTorneo = getTorneo;
 const postTorneo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.header("Access-Control-Allow-Origin", "*");
     try {
-        const { code, name, game, format, date, n_participants, prize, rules, region, fee, matches } = req.body;
+        const { id_organizacion, id_usuario, code, name, game, format, date, n_participants, prize, rules, region, fee, matches } = req.body;
         const existC = yield torneo_1.default.findOne({ where: { code: code } });
         if (existC) {
             return res.status(400).json({
@@ -56,6 +56,8 @@ const postTorneo = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             });
         }
         const torneo = torneo_1.default.build({
+            id_organizacion,
+            id_usuario,
             code,
             name,
             game,
