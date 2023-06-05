@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.putEncuentro = exports.postInscripcion = exports.getInscripcion = exports.getInscripciones = void 0;
+exports.deleteInscripcion = exports.putInscripcion = exports.postInscripcion = exports.getInscripcion = exports.getInscripciones = void 0;
 const inscripcion_1 = __importDefault(require("../models/inscripcion"));
 const torneo_1 = __importDefault(require("../models/torneo"));
 const equipo_1 = __importDefault(require("../models/equipo"));
@@ -83,20 +83,20 @@ const postInscripcion = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.postInscripcion = postInscripcion;
-const putEncuentro = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const putInscripcion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.header("Access-Control-Allow-Origin", "*");
     try {
-        const { code_match } = req.params;
+        const { id_inscripcion } = req.params;
         const { body } = req;
-        const encuentro = yield Encuentro.findOne({ where: { code_match: code_match } });
-        if (!encuentro) {
+        const inscripcion = yield inscripcion_1.default.findOne({ where: { id_inscripcion: id_inscripcion } });
+        if (!inscripcion) {
             return res.status(404).json({
                 status: 404,
-                msg: `No existe el encuentro con el codigo ${code_match}`
+                msg: `No existe el encuentro con el codigo ${id_inscripcion}`
             });
         }
-        yield Encuentro.update(body, { where: { code_match: code_match } });
-        yield encuentro.save();
+        yield inscripcion_1.default.update(body, { where: { id_inscripcion: id_inscripcion } });
+        yield inscripcion.save();
         res.json({
             msg: "Los datos del encuentro han sido actualizados",
             body
@@ -109,26 +109,28 @@ const putEncuentro = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         });
     }
 });
-exports.putEncuentro = putEncuentro;
-// export const deleteEncuentro = async (req: Request, res: Response) => {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     try {
-//         const { code_match } = req.params;
-//         const encuentro = await Encuentro.findOne({ where: { code_match: code_match } });
-//         if (!encuentro) {
-//             return res.status(404).json({
-//                 status: 404,
-//                 msg: `No existe el usuario con el codigo ${code_match}`
-//             })
-//         }
-//         await Encuentro.destroy({ where: { code_match: code_match } });
-//         await encuentro.save();
-//         res.json({
-//             msg: "Los datos del encuentro han sido eliminados",
-//             encuentro
-//         })
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
+exports.putInscripcion = putInscripcion;
+const deleteInscripcion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.header("Access-Control-Allow-Origin", "*");
+    try {
+        const { id_inscripcion } = req.params;
+        const inscripcion = yield inscripcion_1.default.findOne({ where: { id_inscripcion: id_inscripcion } });
+        if (!inscripcion) {
+            return res.status(404).json({
+                status: 404,
+                msg: `No existe el usuario con el codigo ${id_inscripcion}`
+            });
+        }
+        yield inscripcion_1.default.destroy({ where: { id_inscripcion: id_inscripcion } });
+        yield inscripcion.save();
+        res.json({
+            msg: "Los datos del encuentro han sido eliminados",
+            inscripcion
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.deleteInscripcion = deleteInscripcion;
 //# sourceMappingURL=inscripcion.js.map

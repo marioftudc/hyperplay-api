@@ -78,23 +78,23 @@ export const postInscripcion = async (req: Request, res: Response) => {
     }
 }
 
-export const putEncuentro = async (req: Request, res: Response) => {
+export const putInscripcion = async (req: Request, res: Response) => {
     res.header("Access-Control-Allow-Origin", "*");
     try {
-        const { code_match } = req.params;
+        const { id_inscripcion } = req.params;
         const { body } = req;
 
-        const encuentro = await Encuentro.findOne({ where: { code_match: code_match } });
-        if (!encuentro) {
+        const inscripcion = await Inscripciones.findOne({ where: { id_inscripcion: id_inscripcion } });
+        if (!inscripcion) {
             return res.status(404).json({
                 status: 404,
-                msg: `No existe el encuentro con el codigo ${code_match}`
+                msg: `No existe el encuentro con el codigo ${id_inscripcion}`
             })
         }
 
-        await Encuentro.update(body, { where: { code_match: code_match } });
+        await Inscripciones.update(body, { where: { id_inscripcion: id_inscripcion } });
 
-        await encuentro.save();
+        await inscripcion.save();
 
 
         res.json({
@@ -109,28 +109,28 @@ export const putEncuentro = async (req: Request, res: Response) => {
     }
 }
 
-// export const deleteEncuentro = async (req: Request, res: Response) => {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     try {
-//         const { code_match } = req.params;
-//         const encuentro = await Encuentro.findOne({ where: { code_match: code_match } });
-//         if (!encuentro) {
-//             return res.status(404).json({
-//                 status: 404,
-//                 msg: `No existe el usuario con el codigo ${code_match}`
-//             })
-//         }
+export const deleteInscripcion = async (req: Request, res: Response) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    try {
+        const { id_inscripcion } = req.params;
+        const inscripcion = await Inscripciones.findOne({ where: { id_inscripcion: id_inscripcion } });
+        if (!inscripcion) {
+            return res.status(404).json({
+                status: 404,
+                msg: `No existe el usuario con el codigo ${id_inscripcion}`
+            })
+        }
 
-//         await Encuentro.destroy({ where: { code_match: code_match } });
+        await Inscripciones.destroy({ where: { id_inscripcion: id_inscripcion } });
 
-//         await encuentro.save();
+        await inscripcion.save();
 
 
-//         res.json({
-//             msg: "Los datos del encuentro han sido eliminados",
-//             encuentro
-//         })
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
+        res.json({
+            msg: "Los datos del encuentro han sido eliminados",
+            inscripcion
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}

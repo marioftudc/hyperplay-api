@@ -5,10 +5,10 @@ const router = Router ();
 
 
 router.get('/',          getInscripciones);
-router.get('/:code_torneo',          getInscripcion);
-router.post('/',          postInscripcion);
-router.put('/:id_inscripcion',          putInscripcion);
-router.delete('/:id_inscripcion',          deleteInscripcion);
+// router.get('/:code_torneo',          getInscripcion);
+// router.post('/',          postInscripcion);
+// router.put('/:id_inscripcion',          putInscripcion);
+// router.delete('/:id_inscripcion',          deleteInscripcion);
 
 
 export default router;

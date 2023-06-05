@@ -4,9 +4,9 @@ const express_1 = require("express");
 const inscripcion_1 = require("../controllers/inscripcion");
 const router = (0, express_1.Router)();
 router.get('/', inscripcion_1.getInscripciones);
-router.get('/:code_torneo', inscripcion_1.getInscripcion);
-router.post('/', inscripcion_1.postInscripcion);
-router.put('/:id_inscripcion', inscripcion_1.putInscripcion);
-router.delete('/:id_inscripcion', inscripcion_1.deleteInscripcion);
+// router.get('/:code_torneo',          getInscripcion);
+// router.post('/',          postInscripcion);
+// router.put('/:id_inscripcion',          putInscripcion);
+// router.delete('/:id_inscripcion',          deleteInscripcion);
 exports.default = router;
-//# sourceMappingURL=inscripcion.js.map
+//# sourceMappingURL=organizacion.js.map
