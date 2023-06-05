@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.putEquipo = exports.postEquipo = exports.getEquipo = exports.getEquipos = void 0;
+exports.deleteEquipo = exports.putEquipo = exports.postEquipo = exports.getEquipo = exports.getEquipos = void 0;
 const equipo_1 = __importDefault(require("../models/equipo"));
 const getEquipos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.header("Access-Control-Allow-Origin", "*");
@@ -98,4 +98,27 @@ const putEquipo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.putEquipo = putEquipo;
+const deleteEquipo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.header("Access-Control-Allow-Origin", "*");
+    try {
+        const { code } = req.params;
+        const equipo = yield equipo_1.default.findOne({ where: { code: code } });
+        if (!equipo) {
+            return res.status(404).json({
+                status: 404,
+                msg: `No existe el usuario con el codigo ${code}`
+            });
+        }
+        yield equipo_1.default.destroy({ where: { code: code } });
+        yield equipo.save();
+        res.json({
+            msg: "Los datos del Usuario han sido eliminados",
+            code
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.deleteEquipo = deleteEquipo;
 //# sourceMappingURL=equipos.js.map

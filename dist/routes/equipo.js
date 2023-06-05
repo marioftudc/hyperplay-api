@@ -7,5 +7,6 @@ router.get('/', equipos_1.getEquipos);
 router.get('/:code', equipos_1.getEquipo);
 router.post('/', equipos_1.postEquipo);
 router.put('/:code', equipos_1.putEquipo);
+router.delete('/:code', equipos_1.deleteEquipo);
 exports.default = router;
 //# sourceMappingURL=equipo.js.map

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.putTorneo = exports.postTorneo = exports.getTorneo = exports.getTorneos = void 0;
+exports.deleteTorneo = exports.putTorneo = exports.postTorneo = exports.getTorneo = exports.getTorneos = void 0;
 const torneo_1 = __importDefault(require("../models/torneo"));
 const getTorneos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.header("Access-Control-Allow-Origin", "*");
@@ -106,4 +106,27 @@ const putTorneo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.putTorneo = putTorneo;
+const deleteTorneo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.header("Access-Control-Allow-Origin", "*");
+    try {
+        const { code } = req.params;
+        const torneo = yield torneo_1.default.findOne({ where: { code: code } });
+        if (!torneo) {
+            return res.status(404).json({
+                status: 404,
+                msg: `No existe el usuario con el codigo ${code}`
+            });
+        }
+        yield torneo_1.default.destroy({ where: { code: code } });
+        yield torneo.save();
+        res.json({
+            msg: "Los datos del Usuario han sido eliminados",
+            code
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.deleteTorneo = deleteTorneo;
 //# sourceMappingURL=torneo.js.map

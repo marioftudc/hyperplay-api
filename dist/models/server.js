@@ -17,6 +17,7 @@ const usuario_1 = __importDefault(require("../routes/usuario"));
 const torneo_1 = __importDefault(require("../routes/torneo"));
 const equipo_1 = __importDefault(require("../routes/equipo"));
 const auth_1 = __importDefault(require("../routes/auth"));
+const encuentro_1 = __importDefault(require("../routes/encuentro"));
 const cors_1 = __importDefault(require("cors"));
 const connections_1 = __importDefault(require("../db/connections"));
 class Server {
@@ -26,6 +27,7 @@ class Server {
             torneos: '/api/torneos',
             equipos: '/api/equipos',
             auth: '/api/auth',
+            encuentros: '/api/encuentros',
         };
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || '8000';
@@ -58,6 +60,7 @@ class Server {
         this.app.use(this.apiPaths.usuarios, usuario_1.default);
         this.app.use(this.apiPaths.torneos, torneo_1.default);
         this.app.use(this.apiPaths.equipos, equipo_1.default);
+        this.app.use(this.apiPaths.encuentros, encuentro_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {

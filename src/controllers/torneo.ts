@@ -109,3 +109,30 @@ export const putTorneo = async (req: Request, res: Response) => {
         })
     }
 }
+
+
+export const deleteTorneo = async (req: Request, res: Response) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    try {
+        const { code } = req.params;
+        const torneo = await Torneo.findOne({ where: { code: code } });
+        if (!torneo) {
+            return res.status(404).json({
+                status: 404,
+                msg: `No existe el usuario con el codigo ${code}`
+            })
+        }
+
+        await Torneo.destroy({ where: { code: code } });
+
+        await torneo.save();
+
+
+        res.json({
+            msg: "Los datos del Usuario han sido eliminados",
+            code
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}

@@ -1,10 +1,12 @@
 import { DataTypes } from 'sequelize';
 import db from '../db/connections';
 
-const encuentro = db.define('encuentro', {
+const Encuentro = db.define('encuentro', {
 
     id_encuentro: {
-        type:DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     },
     code_tournament: {
         type: DataTypes.INTEGER
@@ -21,4 +23,4 @@ const encuentro = db.define('encuentro', {
 })
 
 
-export default encuentro;
+export default Encuentro;

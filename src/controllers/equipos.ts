@@ -35,11 +35,11 @@ export const getEquipo = async (req: Request, res: Response) => {
 export const postEquipo = async (req: Request, res: Response) => {
     res.header("Access-Control-Allow-Origin", "*");
     try {
-        const { 
+        const {
             code,
             name,
             id_director
-         } = req.body;
+        } = req.body;
 
         const existC: any = await Equipo.findOne({ where: { code: code } });
         if (existC) {
@@ -68,10 +68,10 @@ export const postEquipo = async (req: Request, res: Response) => {
 export const putEquipo = async (req: Request, res: Response) => {
     res.header("Access-Control-Allow-Origin", "*");
     try {
-        const { code} = req.params;
+        const { code } = req.params;
         const { body } = req;
 
-        const torneo = await Equipo.findOne({ where: { code: code }});
+        const torneo = await Equipo.findOne({ where: { code: code } });
         if (!torneo) {
             return res.status(404).json({
                 status: 404,
@@ -79,7 +79,7 @@ export const putEquipo = async (req: Request, res: Response) => {
             })
         }
 
-        await Equipo.update(body, { where: { code: code} });
+        await Equipo.update(body, { where: { code: code } });
 
         await torneo.save();
 
@@ -93,5 +93,31 @@ export const putEquipo = async (req: Request, res: Response) => {
             status: 400,
             msg: "Hubo un error al actualizar los datos"
         })
+    }
+}
+
+export const deleteEquipo = async (req: Request, res: Response) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    try {
+        const { code } = req.params;
+        const equipo = await Equipo.findOne({ where: { code: code } });
+        if (!equipo) {
+            return res.status(404).json({
+                status: 404,
+                msg: `No existe el usuario con el codigo ${code}`
+            })
+        }
+
+        await Equipo.destroy({ where: { code: code } });
+
+        await equipo.save();
+
+
+        res.json({
+            msg: "Los datos del Usuario han sido eliminados",
+            code
+        })
+    } catch (error) {
+        console.log(error)
     }
 }
