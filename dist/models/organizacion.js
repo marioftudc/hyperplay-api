@@ -20,6 +20,15 @@ const Organizacion = connections_1.default.define('organizaciones', {
     type: {
         type: sequelize_1.DataTypes.STRING
     },
+    email: {
+        type: sequelize_1.DataTypes.STRING
+    },
+    tel: {
+        type: sequelize_1.DataTypes.STRING
+    },
+    redes: {
+        type: sequelize_1.DataTypes.STRING
+    },
     updatedAt: {
         type: sequelize_1.DataTypes.DATE
     },

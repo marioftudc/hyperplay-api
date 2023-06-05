@@ -17,6 +17,15 @@ const Organizacion = db.define('organizaciones', {
     type: {
         type: DataTypes.STRING
     },
+    email: {
+        type: DataTypes.STRING
+    },
+    tel: {
+        type: DataTypes.STRING
+    },
+    redes: {
+        type: DataTypes.STRING
+    },
     updatedAt: {
         type: DataTypes.DATE
     },
