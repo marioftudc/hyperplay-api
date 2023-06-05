@@ -31,3 +31,67 @@ export const getEquipo = async (req: Request, res: Response) => {
         })
     }
 }
+
+export const postEquipo = async (req: Request, res: Response) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    try {
+        const { 
+            code,
+            name,
+            id_director
+         } = req.body;
+
+        const existC: any = await Equipo.findOne({ where: { code: code } });
+        if (existC) {
+            return res.status(400).json({
+                status: 400,
+                msg: "El equipo ingresado ya se encuentra registrado"
+            })
+        }
+
+        const equipo: any = Equipo.build({
+            code,
+            name,
+            id_director
+        });
+        await equipo.save();
+        res.json({
+            msg: "El equipo ha sido creado con exito",
+            body: equipo
+        });
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const putEquipo = async (req: Request, res: Response) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    try {
+        const { code} = req.params;
+        const { body } = req;
+
+        const torneo = await Equipo.findOne({ where: { code: code }});
+        if (!torneo) {
+            return res.status(404).json({
+                status: 404,
+                msg: `No existe el torneo con el codigo ${code}`
+            })
+        }
+
+        await Equipo.update(body, { where: { code: code} });
+
+        await torneo.save();
+
+
+        res.json({
+            msg: "Los datos del torneo han sido actualizados",
+            body
+        })
+    } catch (error) {
+        res.json({
+            status: 400,
+            msg: "Hubo un error al actualizar los datos"
+        })
+    }
+}

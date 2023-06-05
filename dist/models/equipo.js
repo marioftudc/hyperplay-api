@@ -17,7 +17,7 @@ const Equipo = connections_1.default.define('equipo', {
     name: {
         type: sequelize_1.DataTypes.STRING
     },
-    roaster: {
+    id_director: {
         type: sequelize_1.DataTypes.STRING
     }
 });

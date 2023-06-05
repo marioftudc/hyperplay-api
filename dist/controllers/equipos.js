@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getEquipo = exports.getEquipos = void 0;
+exports.putEquipo = exports.postEquipo = exports.getEquipo = exports.getEquipos = void 0;
 const equipo_1 = __importDefault(require("../models/equipo"));
 const getEquipos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.header("Access-Control-Allow-Origin", "*");
@@ -44,4 +44,58 @@ const getEquipo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getEquipo = getEquipo;
+const postEquipo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.header("Access-Control-Allow-Origin", "*");
+    try {
+        const { code, name, id_director } = req.body;
+        const existC = yield equipo_1.default.findOne({ where: { code: code } });
+        if (existC) {
+            return res.status(400).json({
+                status: 400,
+                msg: "El equipo ingresado ya se encuentra registrado"
+            });
+        }
+        const equipo = equipo_1.default.build({
+            code,
+            name,
+            id_director
+        });
+        yield equipo.save();
+        res.json({
+            msg: "El equipo ha sido creado con exito",
+            body: equipo
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.postEquipo = postEquipo;
+const putEquipo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.header("Access-Control-Allow-Origin", "*");
+    try {
+        const { code } = req.params;
+        const { body } = req;
+        const torneo = yield equipo_1.default.findOne({ where: { code: code } });
+        if (!torneo) {
+            return res.status(404).json({
+                status: 404,
+                msg: `No existe el torneo con el codigo ${code}`
+            });
+        }
+        yield equipo_1.default.update(body, { where: { code: code } });
+        yield torneo.save();
+        res.json({
+            msg: "Los datos del torneo han sido actualizados",
+            body
+        });
+    }
+    catch (error) {
+        res.json({
+            status: 400,
+            msg: "Hubo un error al actualizar los datos"
+        });
+    }
+});
+exports.putEquipo = putEquipo;
 //# sourceMappingURL=equipos.js.map

@@ -14,7 +14,7 @@ const Equipo = db.define('equipo', {
     name: {
         type: DataTypes.STRING
     },
-    roaster: {
+    id_director: {
         type: DataTypes.STRING
     }
     
