@@ -7,6 +7,7 @@ import encuentrosRoutes from '../routes/encuentro';
 import inscripcionRoutes from '../routes/inscripcion';
 import organizacionRoutes from '../routes/organizacion';
 import resultadosRoutes from '../routes/resultados';
+import miembroRoutes from '../routes/miembro';
 import cors from 'cors';
 import db from '../db/connections';
 
@@ -23,6 +24,7 @@ class Server {
      inscripcion: '/api/inscripcion',
      organizacion: '/api/organizacion',
      resultados: '/api/resultados',
+     miembro: '/api/miembro',
     }
 
     constructor() {
@@ -65,6 +67,7 @@ class Server {
         this.app.use(this.apiPaths.inscripcion, inscripcionRoutes);
         this.app.use(this.apiPaths.organizacion, organizacionRoutes);
         this.app.use(this.apiPaths.resultados, resultadosRoutes);
+        this.app.use(this.apiPaths.miembro, miembroRoutes);
     }
 
     listen(){
