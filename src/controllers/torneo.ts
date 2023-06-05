@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Torneo from "../models/torneo";
 
+
 export const getTorneos = async (req: Request, res: Response) => {
     res.header("Access-Control-Allow-Origin", "*");
 
@@ -35,7 +36,10 @@ export const getTorneo = async (req: Request, res: Response) => {
 export const postTorneo = async (req: Request, res: Response) => {
     res.header("Access-Control-Allow-Origin", "*");
     try {
-        const { code,
+        const { 
+            id_organizacion,
+            id_usuario,
+            code,
             name,
             game,
             format,
@@ -56,6 +60,8 @@ export const postTorneo = async (req: Request, res: Response) => {
         }
 
         const torneo = Torneo.build({
+            id_organizacion,
+            id_usuario,
             code,
             name,
             game,
@@ -82,7 +88,7 @@ export const postTorneo = async (req: Request, res: Response) => {
 export const putTorneo = async (req: Request, res: Response) => {
     res.header("Access-Control-Allow-Origin", "*");
     try {
-        const { code} = req.params;
+        const { code } = req.params;
         const { body } = req;
 
         const torneo = await Torneo.findOne({ where: { code: code }});

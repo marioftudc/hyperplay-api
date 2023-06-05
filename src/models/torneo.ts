@@ -7,6 +7,12 @@ const Torneo = db.define('torneo', {
         primaryKey: true,
         autoIncrement: true
     },
+    id_organizacion: {
+        type: DataTypes.INTEGER
+    },
+    id_usuario: {
+        type: DataTypes.INTEGER
+    },
     code: {
         type: DataTypes.INTEGER
     },

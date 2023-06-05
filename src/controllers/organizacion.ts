@@ -36,6 +36,7 @@ export const postOrganizacion = async (req: Request, res: Response) => {
     res.header("Access-Control-Allow-Origin", "*");
     try {
         const {
+            id_usuario,
             name,
             type,
             status
@@ -49,6 +50,7 @@ export const postOrganizacion = async (req: Request, res: Response) => {
             })
         }
         const organizacion: any = Organizaciones.build({
+            id_usuario,
             name,
             type,
             status

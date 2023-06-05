@@ -8,6 +8,9 @@ const Organizacion = db.define('organizaciones', {
         primaryKey: true,
         autoIncrement: true
     },
+    id_usuario: {
+        type: DataTypes.INTEGER
+    },
     name: {
         type: DataTypes.STRING
     },
